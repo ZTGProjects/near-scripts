@@ -8,7 +8,7 @@ const CREDENTIALS_DIR = ".near-credentials";
  * SET NETWORK FLAG !!
  * set to false for testnet , true for mainnet 
  */
-const IS_TEST = false;
+const IS_TEST = true;
 let network = "";
 
 // return config
@@ -27,9 +27,9 @@ function getConfig() {
 }
 
 // account id
-const accountId = "narwalsandeep." + network + "net";
+const accountId = "tbt." + network + "net";
 // tx id
-const txHash = "EqvbCWvYiTNaPZbr2WpWpjuoyZzkwFRAG6CBw2H9y4Tv";
+const txHash = "DKeL4WFinv3FZ1aWGVxAWhzfQooEmpzM6cw4jp8i45jn";
 
 /**
  * Use TXParser
@@ -41,13 +41,14 @@ const txHash = "EqvbCWvYiTNaPZbr2WpWpjuoyZzkwFRAG6CBw2H9y4Tv";
 		const near = await connect(getConfig());
 		// 2. get tx payload from provider
 		const txPayload = await near.connection.provider.txStatus(txHash, accountId);
-		console.log(JSON.stringify(txPayload, null, 2));
+		//console.log(JSON.stringify(txPayload, null, 2));
 		// 3. init parser
 		const txp = new TXParser();
 		// 4. call parser method with payload
 		const response = await txp.getReadableTx(txPayload);
 		// 5. view log
-		console.log(JSON.stringify(response, null, 2));
+		console.log(response[0].readable);
+		//console.log(JSON.stringify(response, null, 2));
 		}
 	catch (error) {
 		console.error(error);
