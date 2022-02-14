@@ -1,0 +1,23 @@
+{
+  "name": "near-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZTGProjects/near-scripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZTGProjects/near-scripts/issues"
+  },
+  "homepage": "https://github.com/ZTGProjects/near-scripts#readme",
+  "dependencies": {
+    "near": "^0.2.2",
+    "near-api-js": "^0.44.2"
+  }
+}
