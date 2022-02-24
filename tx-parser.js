@@ -18,7 +18,7 @@
 	 */
 	async getReadableTx(res) {
 		this.parseAction(res);
-		this.parseTransfer();
+		this.setActionType();
 		this.prepareReadable();
 		if (!this.error) {
 			return this.action_stack;
@@ -40,13 +40,6 @@
 			_this.action_stack.push({ "payload": element, "meta": { "signer_id": signer_id, "receiver_id": receiver_id } });
 		});
 
-	}
-
-	/**
-	 * 
-	 */
-	parseTransfer() {
-		this.setActionType();
 	}
 
 	/**
@@ -86,6 +79,12 @@
 				case "FunctionCall":
 					_this.action_stack[i]['readable'] = _this._parseFunctionCall(_this.action_stack[i]);
 					break;
+				case "DeployContract":
+					_this.action_stack[i]['readable'] = _this._parseDeployContract(_this.action_stack[i]);
+					break;
+				case "DeleteAccount":
+					_this.action_stack[i]['readable'] = _this._parseDeleteAccount(_this.action_stack[i]);
+					break;
 				default:
 					_this.error = true;
 					_this.msg = "Parser " + element.type + " not defined";
@@ -101,7 +100,7 @@
 	 * - AddKey
 	 * 
 	 * @param {*} payload 
-	 * @returns String
+	 * @returns 
 	 */
 	_parseCreateAccount(payload) {
 		return "New Account created: " + payload.meta.receiver_id;
@@ -110,7 +109,7 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns String
+	 * @returns 
 	 */
 	_parseTransfer(payload) {
 		let amt = payload.payload.Transfer.deposit / this.FACTOR;
@@ -120,7 +119,7 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns String
+	 * @returns 
 	 */
 	_parseAddKey(payload) {
 		return "Access Key added for " + payload.meta.receiver_id;
@@ -129,12 +128,27 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns String
+	 * @returns 
 	 */
 	_parseFunctionCall(payload) {
-		//sconsole.log(payload);
-
 		return "Method Called " + payload.payload.FunctionCall.method_name + " in contract " + payload.meta.receiver_id;
+	}
+
+	/**
+	 * 
+	 * @param {*} payload 
+	 * @returns 
+	 */
+	_parseDeployContract(payload) {
+		return "Contact deployed " + payload.meta.signer_id;
+	}
+
+	/**
+	 * 
+	 * @param {*} $payload 
+	 */
+	_parseDeleteAccount(payload) {
+		return "Account " + payload.meta.signer_id + " deleted and amount transferred to beneficiary " + payload.payload.DeleteAccount.beneficiary_id;
 	}
 
 }
