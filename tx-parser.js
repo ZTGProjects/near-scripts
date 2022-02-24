@@ -101,7 +101,7 @@
 	 * - AddKey
 	 * 
 	 * @param {*} payload 
-	 * @returns 
+	 * @returns String
 	 */
 	_parseCreateAccount(payload) {
 		return "New Account created: " + payload.meta.receiver_id;
@@ -110,7 +110,7 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns 
+	 * @returns String
 	 */
 	_parseTransfer(payload) {
 		let amt = payload.payload.Transfer.deposit / this.FACTOR;
@@ -120,7 +120,7 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns 
+	 * @returns String
 	 */
 	_parseAddKey(payload) {
 		return "Access Key added for " + payload.meta.receiver_id;
@@ -129,10 +129,11 @@
 	/**
 	 * 
 	 * @param {*} payload 
-	 * @returns 
+	 * @returns String
 	 */
 	_parseFunctionCall(payload) {
-		console.log(payload);
+		//sconsole.log(payload);
+
 		return "Method Called " + payload.payload.FunctionCall.method_name + " in contract " + payload.meta.receiver_id;
 	}
 
