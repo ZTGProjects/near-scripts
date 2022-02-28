@@ -25,13 +25,13 @@ function getConfig() {
 		nodeUrl: "https://archival-rpc." + network + "net.near.org",
 	};
 }
-
+// https://archival-rpc.testnet.near.org
 // account id
 // ******** WHY IT WORKS WHEN ACCOUNT ID S WRONG ???????????
 //
-const accountId = "narwalsandeep." + network + "net";
+const accountId = "tbt." + network + "net";
 // tx id
-// /*
+/*
 const txStack = [
 	"6YRJMXDtZSAZSdZrUnYcuZSfrVKzH1QHeQBBQwUwVjhM",
 	"CJKdeHET5TvTf31cAWpeKNB6uHouSK3FLvfV3RsHSxp4",
@@ -70,7 +70,7 @@ const txStack = [
 	when they dont exists, near-api-js does throw error stack
 
 */
-// const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYeP"];
+ const txStack = ["H7vHN2dMs6JCJnXSNBXBW5B5Xo1gJkVtEM7EG8Q5UqGn"];
 
 /**
  * Use TXParser
@@ -79,6 +79,13 @@ const txStack = [
 
 	try {
 		txStack.forEach(async (txHash) => {
+
+
+			const near = await connect(getConfig());
+			const response = await near.connection.provider.txStatus(txHash, accountId);
+			console.log(response);
+			/*
+
 			let txPayload = await txStatus(txHash, accountId);
 			// let response = await txStatusReceipts(txHash,accountId);
 			//console.log(JSON.stringify(txPayload, null, 2));
@@ -89,6 +96,7 @@ const txStack = [
 			// 5. view log
 			//console.log(JSON.stringify(raw, null, 2));
 			 console.log(raw[0].readable);
+			 */
 		});
 	}
 	catch (error) {

@@ -5,10 +5,23 @@
  */
  class ErrorParser {
 
-
+	/**
+	 * 
+	 * @param {*} payload 
+	 * @returns 
+	 */
 	getReadableError(payload){
 		// parse varios error here
-		return "thiss shohuld be redable"
+		return "this shohuld be redable"
+	}
+
+	/**
+	 * 
+	 * @param {*} payload 
+	 */
+	_parseError(payload){
+
+		console.log(payload);
 	}
 
 }
