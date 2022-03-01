@@ -42,8 +42,8 @@ const accountId = "narwalsandeep." + network + "net";
 	when they dont exists, near-api-js does throw error stack
 
 */
-const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYeP"];
-//const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYe1"];
+//const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYeP"];
+const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYe1"];
 
 /**
  * Use TXParser
@@ -52,20 +52,19 @@ const txStack = ["2jTjceFYwriWuAqpvzdVbTof88E7YKt9td9J7iU9hYeP"];
 
 	try {
 		txStack.forEach(async (txHash) => {
-			const response = await txStatus(txHash,accountId);
-			//console.log("Msg = ");
-			if(response.error){
-				//console.log(response.error.data);
-			}
-			else{
-				let txp = new TXParser();
-				let friendly = txp.getReadableTx(response);
+			const response = await txStatus(txHash, accountId);
+			console.log(JSON.stringify(response, null, 4));
+			if (response.error) {
+				let errorp = new ErrorParser();
+				let friendly = await errorp.getReadableError(response);
 				console.log(friendly);
 			}
-			//console.log("====");
-			//const errorp = new ErrorParser();
-			//const payload = await errorp.getReadableError(response);
-			//console.log(payload);
+			else {
+				console.log(JSON.stringify(response.result, null, 2));
+				let txp = new TXParser();
+				let friendly = await txp.getReadableTx(response.result);
+				console.log(friendly[0].readable);
+			}
 		});
 	}
 	catch (error) {

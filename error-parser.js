@@ -11,8 +11,7 @@
 	 * @returns 
 	 */
 	getReadableError(payload){
-		// parse varios error here
-		return "this shohuld be redable"
+		return this._parseError(payload);
 	}
 
 	/**
@@ -21,7 +20,7 @@
 	 */
 	_parseError(payload){
 
-		console.log(payload);
+		return payload.error.data;
 	}
 
 }

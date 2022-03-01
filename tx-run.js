@@ -80,15 +80,9 @@ const txStack = [
 	try {
 		txStack.forEach(async (txHash) => {
 
-
-			const near = await connect(getConfig());
-			const response = await near.connection.provider.txStatus(txHash, accountId);
-			console.log(response);
-			/*
-
 			let txPayload = await txStatus(txHash, accountId);
 			// let response = await txStatusReceipts(txHash,accountId);
-			//console.log(JSON.stringify(txPayload, null, 2));
+			console.log(JSON.stringify(txPayload, null, 2));
 			// 3. init parser
 			const txp = new TXParser();
 			// 4. call parser method with payload
@@ -96,7 +90,7 @@ const txStack = [
 			// 5. view log
 			//console.log(JSON.stringify(raw, null, 2));
 			 console.log(raw[0].readable);
-			 */
+			 
 		});
 	}
 	catch (error) {
